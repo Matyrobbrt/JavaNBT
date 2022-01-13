@@ -1,7 +1,19 @@
 # JavaNBT
 A library for using .dat files (the minecraft nbt format) in java
 
-# Add the library as a gradle dependency
+## Add the library as a gradle dependency
+Before installing, please decide on what version you want, by seeing the available versions [here](https://cloudsmith.io/~matyrobbrt/repos/javanbt/packages/). <br>
+We will start add the repository for the library. In the repositories block add:
+```groovy
+maven {
+  url "https://dl.cloudsmith.io/public/matyrobbrt/javanbt/maven/"
+}
+```
+From here, things are pretty straightforward. We can define the dependency, in the dependencies block using:
+```groovy
+implementation "com.matyrobbrt:javanbt:${javanbt_version}" // Make sure to define the javanbt_version
+```
+## Acknowledgements
 [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com)
 
 Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com).
