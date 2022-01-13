@@ -4,8 +4,14 @@ plugins {
 }
 
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+
+version = "${version}"
+
+def props = new Properties()
+file(".env").withInputStream { props.load(it) }
 
 configurations {
 	shade
@@ -51,8 +57,42 @@ shadowJar {
 	classifier ''
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+	destinationDirectory = file("build-out/${version}/")
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from javadoc.destinationDir
+	destinationDirectory = file("build-out/${version}/")
+}
+
 jar {
 	from {
 		sourceSets.main.output
+	}
+	destinationDirectory = file("build-out/${version}/")
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifactId = "javanbt"
+			groupId = "com.matyrobbrt"
+			version = version
+			artifacts = [jar, javadocJar, sourcesJar]
+		}
+	}
+	repositories {
+		maven {
+		  name = "cloudsmith"
+		  url = "https://maven.cloudsmith.io/matyrobbrt/javanbt/"
+		  credentials {
+				username = props.getProperty("CLOUD_USERNAME")
+				password = props.getProperty("CLOUD_PASSWORD")
+		}
+	}
 	}
 }
