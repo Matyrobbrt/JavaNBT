@@ -1,0 +1,58 @@
+plugins {
+	id 'java-library'
+	id 'com.github.johnrengelman.shadow' version '7.1.1'
+}
+
+apply plugin: 'java'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+
+configurations {
+	shade
+	implementation.extendsFrom(shade)
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = [
+				"$rootDir/src/main/java"
+			]
+		}
+		resources {
+			srcDirs = [
+				"$rootDir/src/main/resources"
+			]
+		}
+	}
+}
+
+repositories {
+	jcenter()
+	mavenCentral()
+
+	flatDir {
+		dirs 'libs'
+	}
+	
+	maven {
+		url 'https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api'
+	}
+}
+
+dependencies {
+	// shade fileTree(include: ['*.jar'], dir: 'libs')
+	implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.0-B1'
+}
+
+shadowJar {
+	configurations = [project.configurations.shade]
+	from sourceSets.main.allSource
+	classifier ''
+}
+
+jar {
+	from {
+		sourceSets.main.output
+	}
+}

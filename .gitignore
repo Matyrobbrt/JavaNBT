@@ -1,0 +1,11 @@
+.gradle
+.env
+.settings
+bin/
+build/
+run/
+.project
+.classpath
+*.launch
+.idea/
+.idea/discord.xml
