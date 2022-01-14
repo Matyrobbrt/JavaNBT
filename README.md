@@ -11,7 +11,7 @@ maven {
 ```
 From here, things are pretty straightforward. We can define the dependency, in the dependencies block using:
 ```groovy
-implementation group: 'io.github.matyrobbrt', name: 'javanbt', version: ${javanbt_version}" // Make sure to define the javanbt_version
+implementation group: 'io.github.matyrobbrt', name: 'javanbt', version: "${javanbt_version}" // Make sure to define the javanbt_version
 ```
 ## Acknowledgements
 [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com)
