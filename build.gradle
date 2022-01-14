@@ -80,7 +80,7 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId = "javanbt"
-			groupId = "com.matyrobbrt"
+			groupId = "io.github.matyrobbrt"
 			version = version
 			artifacts = [jar, javadocJar, sourcesJar]
 		}
