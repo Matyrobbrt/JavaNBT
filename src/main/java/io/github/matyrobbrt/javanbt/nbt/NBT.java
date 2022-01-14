@@ -3,6 +3,8 @@ package io.github.matyrobbrt.javanbt.nbt;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import com.google.gson.JsonElement;
+
 public interface NBT {
 
 	/**
@@ -27,5 +29,7 @@ public interface NBT {
 	NBT copy();
 
 	default String getAsString() { return this.toString(); }
+
+	JsonElement toJson();
 
 }

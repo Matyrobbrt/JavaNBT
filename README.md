@@ -2,6 +2,7 @@
 A library for using .dat files (the minecraft nbt format) in java
 
 ## Add the library as a gradle dependency
+This library requires Google GSON and slf4j in order to work!
 Before installing, please decide on what version you want, by seeing the available versions [here](https://cloudsmith.io/~matyrobbrt/repos/javanbt/packages/). <br>
 We will start add the repository for the library. In the repositories block add:
 ```groovy

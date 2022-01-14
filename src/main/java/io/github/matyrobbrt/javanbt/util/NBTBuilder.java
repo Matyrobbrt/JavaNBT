@@ -83,6 +83,14 @@ public class NBTBuilder {
 		return put(pKey, DoubleNBT.valueOf(pValue));
 	}
 
+	/**
+	 * Stores a new ByteNBT with the given boolean value into the map with the given
+	 * string key.
+	 */
+	public NBTBuilder putBoolean(String key, boolean value) {
+		return put(key, ByteNBT.valueOf(value));
+	}
+
 	public NBTBuilder putStringUUID(String key, UUID value) {
 		return putString(key, value.toString());
 	}

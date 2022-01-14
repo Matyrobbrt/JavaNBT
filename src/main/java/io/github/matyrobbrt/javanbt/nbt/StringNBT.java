@@ -5,6 +5,9 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Objects;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+
 public class StringNBT implements NBT {
 
 	public static final NBTType<StringNBT> TYPE = new NBTType<StringNBT>() {
@@ -25,6 +28,11 @@ public class StringNBT implements NBT {
 
 		@Override
 		public boolean isValue() { return true; }
+
+		@Override
+		public StringNBT fromJson(JsonElement json) {
+			return StringNBT.valueOf(json.getAsString());
+		}
 	};
 	private static final StringNBT EMPTY = new StringNBT("");
 	private final String data;
@@ -100,5 +108,10 @@ public class StringNBT implements NBT {
 		builder.setCharAt(0, c0);
 		builder.append(c0);
 		return builder.toString();
+	}
+
+	@Override
+	public JsonElement toJson() {
+		return new JsonPrimitive(getAsString());
 	}
 }

@@ -12,6 +12,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import io.github.matyrobbrt.javanbt.converter.NBTConverters;
 import io.github.matyrobbrt.javanbt.serialization.NBTSerializable;
 import jakarta.annotation.Nullable;
 
@@ -48,6 +52,11 @@ public class CompoundNBT implements NBT {
 
 		@Override
 		public String getPrettyName() { return "TAG_Compound"; }
+
+		@Override
+		public CompoundNBT fromJson(JsonElement json) {
+			return NBTConverters.stringToNBT(json.toString());
+		}
 	};
 	private final Map<String, NBT> tags;
 
@@ -381,6 +390,15 @@ public class CompoundNBT implements NBT {
 	 */
 	public Map<String, NBT> entriesModifiable() {
 		return tags;
+	}
+
+	@Override
+	public JsonElement toJson() {
+		JsonObject json = new JsonObject();
+		entries().forEach((key, nbt) -> {
+			json.add(key, nbt.toJson());
+		});
+		return null;
 	}
 
 }

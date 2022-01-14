@@ -4,6 +4,9 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+
 public class LongNBT extends NumberNBT {
 
 	public static final NBTType<LongNBT> TYPE = new NBTType<LongNBT>() {
@@ -22,6 +25,11 @@ public class LongNBT extends NumberNBT {
 
 		@Override
 		public boolean isValue() { return true; }
+
+		@Override
+		public LongNBT fromJson(JsonElement json) {
+			return LongNBT.valueOf(json.getAsLong());
+		}
 	};
 	private final long data;
 
@@ -88,4 +96,9 @@ public class LongNBT extends NumberNBT {
 
 	@Override
 	public Number getAsNumber() { return this.data; }
+
+	@Override
+	public JsonElement toJson() {
+		return new JsonPrimitive(getAsNumber());
+	}
 }

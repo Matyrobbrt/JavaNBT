@@ -3,6 +3,8 @@ package io.github.matyrobbrt.javanbt.nbt;
 import java.io.DataInput;
 import java.io.IOException;
 
+import com.google.gson.JsonElement;
+
 public interface NBTType<T extends NBT> {
 
 	T load(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException;
@@ -26,6 +28,13 @@ public interface NBTType<T extends NBT> {
 
 			@Override
 			public String getPrettyName() { return "UNKNOWN_" + id; }
+
+			@Override
+			public EndNBT fromJson(JsonElement json) {
+				throw new IllegalArgumentException("Invalid tag id: " + id);
+			}
 		};
 	}
+
+	T fromJson(JsonElement json);
 }

@@ -12,13 +12,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.github.matyrobbrt.javanbt.io.NBTTools;
 import io.github.matyrobbrt.javanbt.nbt.CompoundNBT;
 import jakarta.annotation.Nullable;
 
-// TODO proper logging
 @SuppressWarnings("static-method")
 public class NBTDatabaseManager {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(NBTDatabaseManager.class);
 
 	static final Timer TIMER = new Timer();
 
@@ -70,8 +74,8 @@ public class NBTDatabaseManager {
 				db.load(nbt.getCompound("data"));
 				return db;
 			}
-		} catch (Exception exception) {
-			System.err.println("Error loading nbt database " + file + ": " + exception);
+		} catch (Exception e) {
+			LOGGER.error("Error loading NBT Database: {}", file, e);
 		}
 		return null;
 	}

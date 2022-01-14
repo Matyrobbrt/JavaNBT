@@ -4,6 +4,9 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+
 public class IntNBT extends NumberNBT {
 
 	public static final NBTType<IntNBT> TYPE = new NBTType<IntNBT>() {
@@ -22,6 +25,11 @@ public class IntNBT extends NumberNBT {
 
 		@Override
 		public boolean isValue() { return true; }
+
+		@Override
+		public IntNBT fromJson(JsonElement json) {
+			return IntNBT.valueOf(json.getAsInt());
+		}
 	};
 
 	private final int data;
@@ -89,4 +97,9 @@ public class IntNBT extends NumberNBT {
 
 	@Override
 	public Number getAsNumber() { return this.data; }
+
+	@Override
+	public JsonElement toJson() {
+		return new JsonPrimitive(getAsNumber());
+	}
 }

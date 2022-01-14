@@ -4,11 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.TimerTask;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.github.matyrobbrt.javanbt.io.NBTTools;
 import io.github.matyrobbrt.javanbt.nbt.CompoundNBT;
 import io.github.matyrobbrt.javanbt.serialization.NBTSerializable;
 
 public abstract class NBTDatabase implements NBTSerializable<CompoundNBT> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(NBTDatabase.class);
 
 	private final File file;
 	private boolean dirty;
@@ -43,8 +48,8 @@ public abstract class NBTDatabase implements NBTSerializable<CompoundNBT> {
 			nbt.put("data", save(new CompoundNBT()));
 			try {
 				NBTTools.writeCompressed(nbt, file);
-			} catch (IOException ioexception) {
-				System.err.println(String.format("Error while trying to save nbt database %s: %s", this, ioexception));
+			} catch (IOException e) {
+				LOGGER.error("Error while trying to save NBT Database {}.", getFile(), e);
 			}
 			setDirty(false);
 		}

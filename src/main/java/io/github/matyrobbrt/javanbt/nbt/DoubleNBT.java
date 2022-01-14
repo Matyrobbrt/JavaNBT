@@ -4,6 +4,9 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+
 public class DoubleNBT extends NumberNBT {
 
 	public static final DoubleNBT ZERO = new DoubleNBT(0.0D);
@@ -23,6 +26,11 @@ public class DoubleNBT extends NumberNBT {
 
 		@Override
 		public boolean isValue() { return true; }
+
+		@Override
+		public DoubleNBT fromJson(JsonElement json) {
+			return DoubleNBT.valueOf(json.getAsDouble());
+		}
 	};
 	private final double data;
 
@@ -90,4 +98,9 @@ public class DoubleNBT extends NumberNBT {
 
 	@Override
 	public Number getAsNumber() { return this.data; }
+
+	@Override
+	public JsonElement toJson() {
+		return new JsonPrimitive(getAsNumber());
+	}
 }

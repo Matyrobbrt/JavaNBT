@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+
 public class ListNBT extends CollectionNBT<NBT> {
 
 	public static final NBTType<ListNBT> TYPE = new NBTType<ListNBT>() {
@@ -40,6 +43,11 @@ public class ListNBT extends CollectionNBT<NBT> {
 
 		@Override
 		public String getPrettyName() { return "TAG_List"; }
+
+		@Override
+		public ListNBT fromJson(JsonElement json) {
+			throw new UnsupportedOperationException("Cannot deserialize a ListNBT from JSON! We cannot know its type.");
+		}
 	};
 
 	private final List<NBT> data;
@@ -264,6 +272,13 @@ public class ListNBT extends CollectionNBT<NBT> {
 	public void clear() {
 		this.data.clear();
 		this.type = 0;
+	}
+
+	@Override
+	public JsonElement toJson() {
+		final var array = new JsonArray();
+		forEach(n -> array.add(n.toJson()));
+		return array;
 	}
 
 }

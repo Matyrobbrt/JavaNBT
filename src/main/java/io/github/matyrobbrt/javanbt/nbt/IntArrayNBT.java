@@ -3,8 +3,12 @@ package io.github.matyrobbrt.javanbt.nbt;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 public class IntArrayNBT extends CollectionNBT<IntNBT> {
 
@@ -29,6 +33,15 @@ public class IntArrayNBT extends CollectionNBT<IntNBT> {
 
 		@Override
 		public String getPrettyName() { return "TAG_Int_Array"; }
+
+		@Override
+		public IntArrayNBT fromJson(JsonElement json) {
+			final var bytes = new ArrayList<Integer>();
+			if (json.isJsonArray()) {
+				json.getAsJsonArray().forEach(e -> bytes.add(e.getAsInt()));
+			}
+			return new IntArrayNBT(bytes);
+		}
 	};
 	private int[] data;
 
@@ -181,5 +194,12 @@ public class IntArrayNBT extends CollectionNBT<IntNBT> {
 	@Override
 	public void clear() {
 		this.data = new int[0];
+	}
+
+	@Override
+	public JsonElement toJson() {
+		JsonArray array = new JsonArray();
+		forEach(nbt -> array.add(nbt.getAsNumber()));
+		return array;
 	}
 }
