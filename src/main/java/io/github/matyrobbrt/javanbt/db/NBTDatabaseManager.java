@@ -41,7 +41,7 @@ public class NBTDatabaseManager {
 		Runtime.getRuntime().addShutdownHook(new Thread(this::save, "Saving db manager"));
 	}
 
-	private final Map<File, NBTDatabase> databases = Collections.synchronizedMap(new HashMap<>());
+	protected final Map<File, NBTDatabase> databases = Collections.synchronizedMap(new HashMap<>());
 
 	public <T extends NBTDatabase> T computeIfAbsent(Function<File, T> creator, File storageFile) {
 		T db = this.get(creator, storageFile);
