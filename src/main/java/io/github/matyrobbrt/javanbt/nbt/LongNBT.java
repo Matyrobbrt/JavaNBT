@@ -12,9 +12,9 @@ public class LongNBT extends NumberNBT {
 	public static final NBTType<LongNBT> TYPE = new NBTType<LongNBT>() {
 
 		@Override
-		public LongNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(128L);
-			return LongNBT.valueOf(pInput.readLong());
+		public LongNBT load(DataInput inpyt, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(128L);
+			return LongNBT.valueOf(inpyt.readLong());
 		}
 
 		@Override

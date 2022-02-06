@@ -15,17 +15,17 @@ public class IntArrayNBT extends CollectionNBT<IntNBT> {
 	public static final NBTType<IntArrayNBT> TYPE = new NBTType<IntArrayNBT>() {
 
 		@Override
-		public IntArrayNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(192L);
-			int i = pInput.readInt();
-			pAccounter.accountBits(32L * i);
-			int[] aint = new int[i];
+		public IntArrayNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(192L);
+			int i = input.readInt();
+			tracker.accountBits(32L * i);
+			int[] ints = new int[i];
 
-			for (int j = 0; j < i; ++j) {
-				aint[j] = pInput.readInt();
+			for (int index = 0; index < i; ++index) {
+				ints[index] = input.readInt();
 			}
 
-			return new IntArrayNBT(aint);
+			return new IntArrayNBT(ints);
 		}
 
 		@Override

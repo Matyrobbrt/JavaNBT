@@ -14,9 +14,9 @@ public class ShortNBT extends NumberNBT {
 	public static final NBTType<ShortNBT> TYPE = new NBTType<ShortNBT>() {
 
 		@Override
-		public ShortNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(80L);
-			return ShortNBT.valueOf(pInput.readShort());
+		public ShortNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(80L);
+			return ShortNBT.valueOf(input.readShort());
 		}
 
 		@Override

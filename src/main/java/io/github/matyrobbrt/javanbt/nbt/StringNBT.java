@@ -13,10 +13,10 @@ public class StringNBT implements NBT {
 	public static final NBTType<StringNBT> TYPE = new NBTType<StringNBT>() {
 
 		@Override
-		public StringNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(288L);
-			String s = pInput.readUTF();
-			pAccounter.readUTF(s);
+		public StringNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(288L);
+			String s = input.readUTF();
+			tracker.readUTF(s);
 			return StringNBT.valueOf(s);
 		}
 

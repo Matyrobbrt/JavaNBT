@@ -16,14 +16,14 @@ public class LongArrayNBT extends CollectionNBT<LongNBT> {
 	public static final NBTType<LongArrayNBT> TYPE = new NBTType<LongArrayNBT>() {
 
 		@Override
-		public LongArrayNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(192L);
-			int i = pInput.readInt();
-			pAccounter.accountBits(64L * i);
+		public LongArrayNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(192L);
+			int i = input.readInt();
+			tracker.accountBits(64L * i);
 			long[] along = new long[i];
 
 			for (int j = 0; j < i; ++j) {
-				along[j] = pInput.readLong();
+				along[j] = input.readLong();
 			}
 
 			return new LongArrayNBT(along);

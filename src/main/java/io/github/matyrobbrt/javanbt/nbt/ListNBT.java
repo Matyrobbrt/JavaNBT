@@ -247,7 +247,7 @@ public class ListNBT extends CollectionNBT<NBT> {
 	public ListNBT copy() {
 		ListNBT list = new ListNBT();
 		list.type = this.type;
-		forEach(data -> list.add(data.copy()));
+		forEach(d -> list.add(d.copy()));
 		return list;
 	}
 

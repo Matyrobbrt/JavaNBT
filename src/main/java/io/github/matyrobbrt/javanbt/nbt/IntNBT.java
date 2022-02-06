@@ -12,9 +12,9 @@ public class IntNBT extends NumberNBT {
 	public static final NBTType<IntNBT> TYPE = new NBTType<IntNBT>() {
 
 		@Override
-		public IntNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(96L);
-			return IntNBT.valueOf(pInput.readInt());
+		public IntNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(96L);
+			return IntNBT.valueOf(input.readInt());
 		}
 
 		@Override
@@ -34,8 +34,8 @@ public class IntNBT extends NumberNBT {
 
 	private final int data;
 
-	private IntNBT(int pData) {
-		this.data = pData;
+	private IntNBT(int data) {
+		this.data = data;
 	}
 
 	public static IntNBT valueOf(int data) {
@@ -43,8 +43,8 @@ public class IntNBT extends NumberNBT {
 	}
 
 	@Override
-	public void write(DataOutput pOutput) throws IOException {
-		pOutput.writeInt(this.data);
+	public void write(DataOutput output) throws IOException {
+		output.writeInt(this.data);
 	}
 
 	@Override
