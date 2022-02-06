@@ -67,6 +67,6 @@ public abstract class NBTDatabase implements NBTSerializable<CompoundNBT> {
 		this.setDirty(true);
 	}
 
-	public void setDirty(boolean pDirty) { this.dirty = pDirty; }
+	public void setDirty(boolean isDirty) { this.dirty = isDirty; }
 
 }
