@@ -12,9 +12,9 @@ public class ByteNBT extends NumberNBT {
 	public static final NBTType<ByteNBT> TYPE = new NBTType<ByteNBT>() {
 
 		@Override
-		public ByteNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(72L);
-			return ByteNBT.valueOf(pInput.readByte());
+		public ByteNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(72L);
+			return ByteNBT.valueOf(input.readByte());
 		}
 
 		@Override
@@ -36,21 +36,21 @@ public class ByteNBT extends NumberNBT {
 	public static final ByteNBT ONE = valueOf((byte) 1);
 	private final byte data;
 
-	private ByteNBT(byte pData) {
-		this.data = pData;
+	private ByteNBT(byte data) {
+		this.data = data;
 	}
 
-	public static ByteNBT valueOf(byte pData) {
-		return ByteNBT.Cache.CACHE[128 + pData];
+	public static ByteNBT valueOf(byte data) {
+		return ByteNBT.Cache.CACHE[128 + data];
 	}
 
-	public static ByteNBT valueOf(boolean pData) {
-		return pData ? ONE : ZERO;
+	public static ByteNBT valueOf(boolean data) {
+		return data ? ONE : ZERO;
 	}
 
 	@Override
-	public void write(DataOutput pOutput) throws IOException {
-		pOutput.writeByte(this.data);
+	public void write(DataOutput output) throws IOException {
+		output.writeByte(this.data);
 	}
 
 	@Override

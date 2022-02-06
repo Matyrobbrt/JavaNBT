@@ -7,11 +7,11 @@ import io.github.matyrobbrt.javanbt.nbt.CompoundNBT;
 import io.github.matyrobbrt.javanbt.serialization.NBTSerializable;
 import jakarta.annotation.Nonnull;
 
-public class NBTManager implements NBTSerializable<CompoundNBT> {
+public class NBTDataManager implements NBTSerializable<CompoundNBT> {
 
 	private final Map<String, NBTSerializable<?>> data = new HashMap<>();
 
-	public NBTManager track(@Nonnull String key, @Nonnull NBTSerializable<?> toTrack) {
+	public NBTDataManager track(@Nonnull String key, @Nonnull NBTSerializable<?> toTrack) {
 		data.put(key, toTrack);
 		return this;
 	}

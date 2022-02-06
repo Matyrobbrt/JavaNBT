@@ -5,9 +5,9 @@ import java.util.AbstractList;
 
 public abstract class CollectionNBT<T extends NBT> extends AbstractList<T> implements NBT {
 
-	public abstract boolean setNBT(int pIndex, NBT nbt);
+	public abstract boolean setNBT(int index, NBT nbt);
 
-	public abstract boolean addNBT(int pIndex, NBT nbt);
+	public abstract boolean addNBT(int index, NBT nbt);
 
 	public abstract byte getElementType();
 

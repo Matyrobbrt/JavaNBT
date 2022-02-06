@@ -13,9 +13,9 @@ public class FloatNBT extends NumberNBT {
 	public static final NBTType<FloatNBT> TYPE = new NBTType<FloatNBT>() {
 
 		@Override
-		public FloatNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(96L);
-			return FloatNBT.valueOf(pInput.readFloat());
+		public FloatNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(96L);
+			return FloatNBT.valueOf(input.readFloat());
 		}
 
 		@Override
@@ -34,17 +34,17 @@ public class FloatNBT extends NumberNBT {
 	};
 	private final float data;
 
-	private FloatNBT(float pData) {
-		this.data = pData;
+	private FloatNBT(float data) {
+		this.data = data;
 	}
 
-	public static FloatNBT valueOf(float pData) {
-		return pData == 0.0F ? ZERO : new FloatNBT(pData);
+	public static FloatNBT valueOf(float data) {
+		return data == 0.0F ? ZERO : new FloatNBT(data);
 	}
 
 	@Override
-	public void write(DataOutput pOutput) throws IOException {
-		pOutput.writeFloat(this.data);
+	public void write(DataOutput ouput) throws IOException {
+		ouput.writeFloat(this.data);
 	}
 
 	@Override

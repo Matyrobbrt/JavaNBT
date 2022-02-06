@@ -12,8 +12,8 @@ public class EndNBT implements NBT {
 	public static final NBTType<EndNBT> TYPE = new NBTType<EndNBT>() {
 
 		@Override
-		public EndNBT load(DataInput pInput, int pDepth, NBTSizeTracker accounter) {
-			accounter.accountBits(64L);
+		public EndNBT load(DataInput input, int depth, NBTSizeTracker tracker) {
+			tracker.accountBits(64L);
 			return EndNBT.INSTANCE;
 		}
 
@@ -37,7 +37,8 @@ public class EndNBT implements NBT {
 	}
 
 	@Override
-	public void write(DataOutput pOutput) throws IOException {
+	public void write(DataOutput output) throws IOException {
+		// Nothing to write.
 	}
 
 	@Override

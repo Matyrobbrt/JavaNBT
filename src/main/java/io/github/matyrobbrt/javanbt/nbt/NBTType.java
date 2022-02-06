@@ -19,7 +19,7 @@ public interface NBTType<T extends NBT> {
 		return new NBTType<EndNBT>() {
 
 			@Override
-			public EndNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
+			public EndNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
 				throw new IllegalArgumentException("Invalid tag id: " + id);
 			}
 

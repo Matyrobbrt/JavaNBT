@@ -3,6 +3,8 @@ package io.github.matyrobbrt.javanbt.nbt;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
@@ -37,8 +39,10 @@ public class ShortNBT extends NumberNBT {
 		this.data = data;
 	}
 
+	private static final Map<Short, ShortNBT> CACHE = new ConcurrentHashMap<>();
+
 	public static ShortNBT valueOf(short data) {
-		return new ShortNBT(data);
+		return CACHE.computeIfAbsent(data, ShortNBT::new);
 	}
 
 	@Override

@@ -13,9 +13,9 @@ public class DoubleNBT extends NumberNBT {
 	public static final NBTType<DoubleNBT> TYPE = new NBTType<DoubleNBT>() {
 
 		@Override
-		public DoubleNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(128L);
-			return DoubleNBT.valueOf(pInput.readDouble());
+		public DoubleNBT load(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
+			sizeTracker.accountBits(128L);
+			return DoubleNBT.valueOf(input.readDouble());
 		}
 
 		@Override
@@ -34,17 +34,17 @@ public class DoubleNBT extends NumberNBT {
 	};
 	private final double data;
 
-	private DoubleNBT(double pData) {
-		this.data = pData;
+	private DoubleNBT(double data) {
+		this.data = data;
 	}
 
-	public static DoubleNBT valueOf(double pData) {
-		return pData == 0.0D ? ZERO : new DoubleNBT(pData);
+	public static DoubleNBT valueOf(double data) {
+		return data == 0.0D ? ZERO : new DoubleNBT(data);
 	}
 
 	@Override
-	public void write(DataOutput pOutput) throws IOException {
-		pOutput.writeDouble(this.data);
+	public void write(DataOutput output) throws IOException {
+		output.writeDouble(this.data);
 	}
 
 	@Override

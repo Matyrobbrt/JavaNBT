@@ -25,21 +25,21 @@ public class CompoundNBT implements NBT {
 	public static final NBTType<CompoundNBT> TYPE = new NBTType<>() {
 
 		@Override
-		public CompoundNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(384L);
-			if (pDepth > 512) {
+		public CompoundNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(384L);
+			if (depth > 512) {
 				throw new RuntimeException("Tried to read NBT tag with too high complexity, depth > 512");
 			} else {
 				Map<String, NBT> map = new HashMap<>();
 
 				byte b0;
-				while ((b0 = CompoundNBT.readNamedNBTType(pInput, pAccounter)) != 0) {
-					String s = CompoundNBT.readNamedNBTName(pInput, pAccounter);
-					pAccounter.accountBits(224 + 16 * s.length());
-					pAccounter.accountBits(32); // Forge: 4 extra bytes for the object allocation.
-					NBT inbt = CompoundNBT.readNamedNBTData(NBTTypes.getType(b0), s, pInput, pDepth + 1, pAccounter);
+				while ((b0 = CompoundNBT.readNamedNBTType(input, tracker)) != 0) {
+					String s = CompoundNBT.readNamedNBTName(input, tracker);
+					tracker.accountBits(224 + 16 * s.length());
+					tracker.accountBits(32); // Forge: 4 extra bytes for the object allocation.
+					NBT inbt = CompoundNBT.readNamedNBTData(NBTTypes.getType(b0), s, input, depth + 1, tracker);
 					if (map.put(s, inbt) != null) {
-						pAccounter.accountBits(288L);
+						tracker.accountBits(288L);
 					}
 				}
 
@@ -48,10 +48,14 @@ public class CompoundNBT implements NBT {
 		}
 
 		@Override
-		public String getName() { return "COMPOUND"; }
+		public String getName() {
+			return "COMPOUND";
+		}
 
 		@Override
-		public String getPrettyName() { return "TAG_Compound"; }
+		public String getPrettyName() {
+			return "TAG_Compound";
+		}
 
 		@Override
 		public CompoundNBT fromJson(JsonElement json) {
@@ -76,13 +80,19 @@ public class CompoundNBT implements NBT {
 		output.writeByte(0);
 	}
 
-	public Set<String> getAllKeys() { return tags.keySet(); }
+	public Set<String> getAllKeys() {
+		return tags.keySet();
+	}
 
 	@Override
-	public byte getId() { return 10; }
+	public byte getId() {
+		return 10;
+	}
 
 	@Override
-	public NBTType<CompoundNBT> getType() { return TYPE; }
+	public NBTType<CompoundNBT> getType() {
+		return TYPE;
+	}
 
 	public int size() {
 		return tags.size();
@@ -271,11 +281,11 @@ public class CompoundNBT implements NBT {
 		return new CompoundNBT();
 	}
 
-	public ListNBT getList(String key, int pTagType) {
+	public ListNBT getList(String key, int tagType) {
 		try {
 			if (this.getTagType(key) == 9) {
 				ListNBT listnbt = (ListNBT) tags.get(key);
-				if (!listnbt.isEmpty() && listnbt.getElementType() != pTagType) { return new ListNBT(); }
+				if (!listnbt.isEmpty() && listnbt.getElementType() != tagType) { return new ListNBT(); }
 
 				return listnbt;
 			}
@@ -307,7 +317,9 @@ public class CompoundNBT implements NBT {
 		return builder.append('}').toString();
 	}
 
-	public boolean isEmpty() { return tags.isEmpty(); }
+	public boolean isEmpty() {
+		return tags.isEmpty();
+	}
 
 	@Override
 	public CompoundNBT copy() {
@@ -351,8 +363,8 @@ public class CompoundNBT implements NBT {
 			NBTSizeTracker sizeTracker) {
 		try {
 			return type.load(input, depth, sizeTracker);
-		} catch (IOException ioexception) {
-			throw new RuntimeException(ioexception);
+		} catch (IOException r) {
+			throw new RuntimeException(r);
 		}
 	}
 
@@ -395,9 +407,7 @@ public class CompoundNBT implements NBT {
 	@Override
 	public JsonElement toJson() {
 		JsonObject json = new JsonObject();
-		entries().forEach((key, nbt) -> {
-			json.add(key, nbt.toJson());
-		});
+		entries().forEach((key, nbt) -> json.add(key, nbt.toJson()));
 		return null;
 	}
 

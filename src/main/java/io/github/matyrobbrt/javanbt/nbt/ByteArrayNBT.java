@@ -15,12 +15,12 @@ public class ByteArrayNBT extends CollectionNBT<ByteNBT> {
 	public static final NBTType<ByteArrayNBT> TYPE = new NBTType<ByteArrayNBT>() {
 
 		@Override
-		public ByteArrayNBT load(DataInput pInput, int pDepth, NBTSizeTracker pAccounter) throws IOException {
-			pAccounter.accountBits(192L);
-			int i = pInput.readInt();
-			pAccounter.accountBits(8L * i);
+		public ByteArrayNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+			tracker.accountBits(192L);
+			int i = input.readInt();
+			tracker.accountBits(8L * i);
 			byte[] abyte = new byte[i];
-			pInput.readFully(abyte);
+			input.readFully(abyte);
 			return new ByteArrayNBT(abyte);
 		}
 
@@ -41,19 +41,19 @@ public class ByteArrayNBT extends CollectionNBT<ByteNBT> {
 	};
 	private byte[] data;
 
-	public ByteArrayNBT(byte[] pData) {
-		this.data = pData;
+	public ByteArrayNBT(byte[] data) {
+		this.data = data;
 	}
 
-	public ByteArrayNBT(List<Byte> pDataList) {
-		this(toArray(pDataList));
+	public ByteArrayNBT(List<Byte> datalist) {
+		this(toArray(datalist));
 	}
 
-	private static byte[] toArray(List<Byte> pDataList) {
-		byte[] abyte = new byte[pDataList.size()];
+	private static byte[] toArray(List<Byte> datalist) {
+		byte[] abyte = new byte[datalist.size()];
 
-		for (int i = 0; i < pDataList.size(); ++i) {
-			Byte obyte = pDataList.get(i);
+		for (int i = 0; i < datalist.size(); ++i) {
+			Byte obyte = datalist.get(i);
 			abyte[i] = obyte == null ? 0 : obyte;
 		}
 
@@ -61,9 +61,9 @@ public class ByteArrayNBT extends CollectionNBT<ByteNBT> {
 	}
 
 	@Override
-	public void write(DataOutput pOutput) throws IOException {
-		pOutput.writeInt(this.data.length);
-		pOutput.write(this.data);
+	public void write(DataOutput output) throws IOException {
+		output.writeInt(this.data.length);
+		output.write(this.data);
 	}
 
 	@Override
@@ -169,7 +169,7 @@ public class ByteArrayNBT extends CollectionNBT<ByteNBT> {
 	}
 
 	public static byte[] insert(final int index, final byte[] array, final byte... values) {
-		if (array == null) { return null; }
+		if (array == null) { return new byte[0]; }
 		if (index < 0 || index > array.length) {
 			throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
 		}

@@ -21,4 +21,8 @@ public class Serializers {
 	public static <T> Deserializer<?, T> getDeserializerFor(@Nonnull Class<T> clazz) {
 		return (Deserializer<?, T>) DESERIALIZERS.get(clazz);
 	}
+
+	public static boolean hasDeserializer(@Nonnull Class<?> clazz) {
+		return DESERIALIZERS.containsKey(clazz);
+	}
 }
