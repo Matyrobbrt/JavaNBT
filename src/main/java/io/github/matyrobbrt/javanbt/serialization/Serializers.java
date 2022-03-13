@@ -10,19 +10,19 @@ import jakarta.annotation.Nullable;
 @SuppressWarnings("unchecked")
 public class Serializers {
 
-	private static final Map<Class<?>, Deserializer<?, ?>> DESERIALIZERS = new HashMap<>();
+    private static final Map<Class<?>, Deserializer<?, ?>> DESERIALIZERS = new HashMap<>();
 
-	public static <N extends NBT, T> Deserializer<N, T> registerDeserializer(final Class<T> clazz,
-			Deserializer<N, T> deserializer) {
-		return (Deserializer<N, T>) DESERIALIZERS.computeIfAbsent(clazz, k -> deserializer);
-	}
+    public static <N extends NBT, T> Deserializer<N, T> registerDeserializer(final Class<T> clazz,
+        Deserializer<N, T> deserializer) {
+        return (Deserializer<N, T>) DESERIALIZERS.computeIfAbsent(clazz, k -> deserializer);
+    }
 
-	@Nullable
-	public static <T> Deserializer<?, T> getDeserializerFor(@Nonnull Class<T> clazz) {
-		return (Deserializer<?, T>) DESERIALIZERS.get(clazz);
-	}
+    @Nullable
+    public static <T> Deserializer<?, T> getDeserializerFor(@Nonnull Class<T> clazz) {
+        return (Deserializer<?, T>) DESERIALIZERS.get(clazz);
+    }
 
-	public static boolean hasDeserializer(@Nonnull Class<?> clazz) {
-		return DESERIALIZERS.containsKey(clazz);
-	}
+    public static boolean hasDeserializer(@Nonnull Class<?> clazz) {
+        return DESERIALIZERS.containsKey(clazz);
+    }
 }

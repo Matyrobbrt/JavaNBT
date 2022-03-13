@@ -9,97 +9,121 @@ import com.google.gson.JsonPrimitive;
 
 public class FloatNBT extends NumberNBT {
 
-	public static final FloatNBT ZERO = new FloatNBT(0.0F);
-	public static final NBTType<FloatNBT> TYPE = new NBTType<FloatNBT>() {
+    public static final FloatNBT ZERO = new FloatNBT(0.0F);
+    public static final NBTType<FloatNBT> TYPE = new NBTType<FloatNBT>() {
 
-		@Override
-		public FloatNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
-			tracker.accountBits(96L);
-			return FloatNBT.valueOf(input.readFloat());
-		}
+        @Override
+        public FloatNBT load(DataInput input, int depth, NBTSizeTracker tracker) throws IOException {
+            tracker.accountBits(96L);
+            return FloatNBT.valueOf(input.readFloat());
+        }
 
-		@Override
-		public String getName() { return "FLOAT"; }
+        @Override
+        public String getName() {
+            return "FLOAT";
+        }
 
-		@Override
-		public String getPrettyName() { return "TAG_Float"; }
+        @Override
+        public String getPrettyName() {
+            return "TAG_Float";
+        }
 
-		@Override
-		public boolean isValue() { return true; }
+        @Override
+        public boolean isValue() {
+            return true;
+        }
 
-		@Override
-		public FloatNBT fromJson(JsonElement json) {
-			return FloatNBT.valueOf(json.getAsFloat());
-		}
-	};
-	private final float data;
+        @Override
+        public FloatNBT fromJson(JsonElement json) {
+            return FloatNBT.valueOf(json.getAsFloat());
+        }
+    };
+    private final float data;
 
-	private FloatNBT(float data) {
-		this.data = data;
-	}
+    private FloatNBT(float data) {
+        this.data = data;
+    }
 
-	public static FloatNBT valueOf(float data) {
-		return data == 0.0F ? ZERO : new FloatNBT(data);
-	}
+    public static FloatNBT valueOf(float data) {
+        return data == 0.0F ? ZERO : new FloatNBT(data);
+    }
 
-	@Override
-	public void write(DataOutput ouput) throws IOException {
-		ouput.writeFloat(this.data);
-	}
+    @Override
+    public void write(DataOutput ouput) throws IOException {
+        ouput.writeFloat(this.data);
+    }
 
-	@Override
-	public byte getId() { return 5; }
+    @Override
+    public byte getId() {
+        return 5;
+    }
 
-	@Override
-	public NBTType<FloatNBT> getType() { return TYPE; }
+    @Override
+    public NBTType<FloatNBT> getType() {
+        return TYPE;
+    }
 
-	@Override
-	public String toString() {
-		return this.data + "f";
-	}
+    @Override
+    public String toString() {
+        return this.data + "f";
+    }
 
-	@Override
-	public FloatNBT copy() {
-		return this;
-	}
+    @Override
+    public FloatNBT copy() {
+        return this;
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		} else {
-			return other instanceof FloatNBT fnbt && this.data == fnbt.data;
-		}
-	}
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            return other instanceof FloatNBT fnbt && this.data == fnbt.data;
+        }
+    }
 
-	@Override
-	public int hashCode() {
-		return Float.floatToIntBits(this.data);
-	}
+    @Override
+    public int hashCode() {
+        return Float.floatToIntBits(this.data);
+    }
 
-	@Override
-	public long getAsLong() { return (long) this.data; }
+    @Override
+    public long getAsLong() {
+        return (long) this.data;
+    }
 
-	@Override
-	public int getAsInt() { return (int) Math.floor(data); }
+    @Override
+    public int getAsInt() {
+        return (int) Math.floor(data);
+    }
 
-	@Override
-	public short getAsShort() { return (short) ((int) Math.floor(data) & '\uffff'); }
+    @Override
+    public short getAsShort() {
+        return (short) ((int) Math.floor(data) & '\uffff');
+    }
 
-	@Override
-	public byte getAsByte() { return (byte) ((int) Math.floor(data) & 255); }
+    @Override
+    public byte getAsByte() {
+        return (byte) ((int) Math.floor(data) & 255);
+    }
 
-	@Override
-	public double getAsDouble() { return this.data; }
+    @Override
+    public double getAsDouble() {
+        return this.data;
+    }
 
-	@Override
-	public float getAsFloat() { return this.data; }
+    @Override
+    public float getAsFloat() {
+        return this.data;
+    }
 
-	@Override
-	public Number getAsNumber() { return this.data; }
+    @Override
+    public Number getAsNumber() {
+        return this.data;
+    }
 
-	@Override
-	public JsonElement toJson() {
-		return new JsonPrimitive(getAsNumber());
-	}
+    @Override
+    public JsonElement toJson() {
+        return new JsonPrimitive(getAsNumber());
+    }
 }

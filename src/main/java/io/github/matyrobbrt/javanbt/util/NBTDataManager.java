@@ -9,27 +9,27 @@ import jakarta.annotation.Nonnull;
 
 public class NBTDataManager implements NBTSerializable<CompoundNBT> {
 
-	private final Map<String, NBTSerializable<?>> data = new HashMap<>();
+    private final Map<String, NBTSerializable<?>> data = new HashMap<>();
 
-	public NBTDataManager track(@Nonnull String key, @Nonnull NBTSerializable<?> toTrack) {
-		data.put(key, toTrack);
-		return this;
-	}
+    public NBTDataManager track(@Nonnull String key, @Nonnull NBTSerializable<?> toTrack) {
+        data.put(key, toTrack);
+        return this;
+    }
 
-	@Override
-	public CompoundNBT serializeNBT() {
-		NBTBuilder builder = new NBTBuilder();
-		data.forEach((key, serializable) -> builder.put(key, serializable.serializeNBT()));
-		return builder.build();
-	}
+    @Override
+    public CompoundNBT serializeNBT() {
+        NBTBuilder builder = new NBTBuilder();
+        data.forEach((key, serializable) -> builder.put(key, serializable.serializeNBT()));
+        return builder.build();
+    }
 
-	@Override
-	public void deserializeNBT(CompoundNBT nbt) {
-		NBTReader reader = NBTReader.of(nbt);
-		data.forEach((key, serializable) -> {
-			if (reader.contains(key)) {
-				reader.load(key, serializable);
-			}
-		});
-	}
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        NBTReader reader = NBTReader.of(nbt);
+        data.forEach((key, serializable) -> {
+            if (reader.contains(key)) {
+                reader.load(key, serializable);
+            }
+        });
+    }
 }

@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface NBTExposed {
 
-	String serializationName() default "";
+    String serializationName() default "";
 
 }

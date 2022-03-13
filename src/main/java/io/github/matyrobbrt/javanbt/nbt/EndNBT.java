@@ -9,57 +9,67 @@ import com.google.gson.JsonObject;
 
 public class EndNBT implements NBT {
 
-	public static final NBTType<EndNBT> TYPE = new NBTType<EndNBT>() {
+    public static final NBTType<EndNBT> TYPE = new NBTType<EndNBT>() {
 
-		@Override
-		public EndNBT load(DataInput input, int depth, NBTSizeTracker tracker) {
-			tracker.accountBits(64L);
-			return EndNBT.INSTANCE;
-		}
+        @Override
+        public EndNBT load(DataInput input, int depth, NBTSizeTracker tracker) {
+            tracker.accountBits(64L);
+            return EndNBT.INSTANCE;
+        }
 
-		@Override
-		public String getName() { return "END"; }
+        @Override
+        public String getName() {
+            return "END";
+        }
 
-		@Override
-		public String getPrettyName() { return "TAG_End"; }
+        @Override
+        public String getPrettyName() {
+            return "TAG_End";
+        }
 
-		@Override
-		public boolean isValue() { return true; }
+        @Override
+        public boolean isValue() {
+            return true;
+        }
 
-		@Override
-		public EndNBT fromJson(JsonElement json) {
-			return EndNBT.INSTANCE;
-		}
-	};
-	public static final EndNBT INSTANCE = new EndNBT();
+        @Override
+        public EndNBT fromJson(JsonElement json) {
+            return EndNBT.INSTANCE;
+        }
+    };
+    public static final EndNBT INSTANCE = new EndNBT();
 
-	private EndNBT() {
-	}
+    private EndNBT() {
+    }
 
-	@Override
-	public void write(DataOutput output) throws IOException {
-		// Nothing to write.
-	}
+    @Override
+    public void write(DataOutput output) throws IOException {
+        // Nothing to write.
+    }
 
-	@Override
-	public byte getId() { return 0; }
+    @Override
+    public byte getId() {
+        return 0;
+    }
 
-	@Override
-	public NBTType<EndNBT> getType() { return TYPE; }
+    @Override
+    public NBTType<EndNBT> getType() {
+        return TYPE;
+    }
 
-	@Override
-	public String toString() {
-		return "END";
-	}
+    @Override
+    public String toString() {
+        return "END";
+    }
 
-	@Override
-	public EndNBT copy() {
-		return this;
-	}
+    @Override
+    public EndNBT copy() {
+        return this;
+    }
 
-	@Override
-	public JsonElement toJson() {
-		return new JsonObject();
-	}
+    @Override
+    public JsonElement toJson() {
+        return new JsonObject();
+    }
 
 }

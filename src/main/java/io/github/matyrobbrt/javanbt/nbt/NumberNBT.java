@@ -2,20 +2,20 @@ package io.github.matyrobbrt.javanbt.nbt;
 
 public abstract class NumberNBT implements NBT {
 
-	protected NumberNBT() {
-	}
+    protected NumberNBT() {
+    }
 
-	public abstract long getAsLong();
+    public abstract long getAsLong();
 
-	public abstract int getAsInt();
+    public abstract int getAsInt();
 
-	public abstract short getAsShort();
+    public abstract short getAsShort();
 
-	public abstract byte getAsByte();
+    public abstract byte getAsByte();
 
-	public abstract double getAsDouble();
+    public abstract double getAsDouble();
 
-	public abstract float getAsFloat();
+    public abstract float getAsFloat();
 
-	public abstract Number getAsNumber();
+    public abstract Number getAsNumber();
 }
