@@ -1,7 +1,5 @@
 package io.github.matyrobbrt.javanbt.serialization.manager;
 
-import static io.github.matyrobbrt.javanbt.util.Utils.makeEntry;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.Modifier;
@@ -11,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+
+import static io.github.matyrobbrt.javanbt.util.Utils.makeEntry;
 
 import io.github.matyrobbrt.javanbt.annotation.NBTExposed;
 import io.github.matyrobbrt.javanbt.nbt.ByteNBT;
@@ -107,8 +107,13 @@ public class NBTManager {
 	}
 
 	public <T> T fromNBT(final NBT nbt, Class<T> typeClazz) {
-		// TODO fix primitives
+        if (typeClazz == byte.class) { return DEFAULT_TYPE_ADATPTERS.get(Byte.class).unsafeFromNBT(nbt); }
+        if (typeClazz == short.class) { return DEFAULT_TYPE_ADATPTERS.get(Short.class).unsafeFromNBT(nbt); }
+        if (typeClazz == boolean.class) { return DEFAULT_TYPE_ADATPTERS.get(Boolean.class).unsafeFromNBT(nbt); }
+        if (typeClazz == long.class) { return DEFAULT_TYPE_ADATPTERS.get(Long.class).unsafeFromNBT(nbt); }
 		if (typeClazz == int.class) { return DEFAULT_TYPE_ADATPTERS.get(Integer.class).unsafeFromNBT(nbt); }
+        if (typeClazz == double.class) { return DEFAULT_TYPE_ADATPTERS.get(Double.class).unsafeFromNBT(nbt); }
+        if (typeClazz == float.class) { return DEFAULT_TYPE_ADATPTERS.get(Float.class).unsafeFromNBT(nbt); }
 		if (DEFAULT_TYPE_ADATPTERS.containsKey(typeClazz)) {
 			return DEFAULT_TYPE_ADATPTERS.get(typeClazz).unsafeFromNBT(nbt);
 		}
